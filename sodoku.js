@@ -108,7 +108,7 @@ const printQuestion = (grid, spots, gridLength = grid.length, numOfSpots = spots
   console.log("-".repeat(gridLength * 2 - 1));
 };
 
-const main = (grid, n = grid.length) => {
+const main = grid => {
   solution = "None";
 
   // collect all available spots
