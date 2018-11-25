@@ -26,15 +26,16 @@ const copy_grid = grid => grid.map(row => [...row]);
 const isUniqueArray = array => array.length === new Set(array).size;
 
 const hasUniqueValues = subGrid => {
-  const oneDimensionalArray = subGrid.reduce((acc, row) => (!acc ? false : acc.concat(row)), []);
-  const filteredArray = oneDimensionalArray.filter(x => x != 0);
-  return isUniqueArray(filteredArray);
+  const nonZeroValues = subGrid
+    .reduce((acc, row) => (!acc ? false : acc.concat(row)), [])
+    .filter(x => x != 0);
+  return isUniqueArray(nonZeroValues);
 };
 
 const transposeGrid = grid => grid.map((_, row) => grid.map(col => col[row]));
 
 const hasValidRows = grid =>
-  grid.reduce((acc, row) => (!acc ? false : isUniqueArray([...row].filter(x => x !== 0))), true);
+  grid.reduce((acc, row) => (!acc ? false : isUniqueArray(row.filter(x => x !== 0))), true);
 
 const hasValidColumns = grid => hasValidRows(transposeGrid(grid));
 
@@ -62,14 +63,14 @@ const hasValidSubGrids = (grid, n = grid.length) => {
 
 const isValidGrid = grid => hasValidRows(grid) && hasValidColumns(grid) && hasValidSubGrids(grid);
 
-const getSpots = (grid, spots = []) => {
+const getEmptySpots = (grid, spots = []) => {
   grid.forEach((_, row) =>
     grid.forEach((_, col) => grid[row][col] === 0 && spots.push([row, col]))
   );
   return spots;
 };
 
-const isSolved = grid => getSpots(grid).length === 0;
+const isSolved = grid => getEmptySpots(grid).length === 0;
 
 const solve = (grid, spots, x) => {
   // if all spots filled: stop searching
@@ -111,7 +112,7 @@ const main = (grid, n = grid.length) => {
   solution = "None";
 
   // collect all available spots
-  const spots = getSpots(grid);
+  const spots = getEmptySpots(grid);
 
   // print question
   printQuestion(grid, spots);
