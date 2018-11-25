@@ -73,26 +73,23 @@ const getEmptySpots = (grid, spots = []) => {
 const isSolved = grid => getEmptySpots(grid).length === 0;
 
 const solve = (grid, spots, x) => {
-  // if all spots filled: stop searching
-  if (spots.length === 0) return;
-
-  // if another search solved the grid: stop seaching
-  if (solution !== "None") return;
+  // if grid is solved: stop searching
+  if (spots.length === 0 || solution !== "None") return;
 
   // set the cell to x
   [row, col] = spots[0];
   grid[row][col] = x;
 
-  // if the grid is invalid: stop seaching
+  // if grid is not valid: stop seaching
   if (isValidGrid(grid) === false) return;
 
-  // if the grid is solved: stop searching
+  // if grid is solved: stop searching
   if (isSolved(grid)) {
     solution = grid;
     return;
   }
 
-  // here the grid is valid but not solved: continue searching
+  // the grid is valid but not solved: solve he next spot
   grid.forEach((_, x) => {
     const spots1 = spots.slice(1);
     solve(copy_grid(grid), spots1, x + 1);
