@@ -1,0 +1,12 @@
+{
+  "name": "sodoku",
+  "version": "1.0.0",
+  "description": "",
+  "main": "sodoku.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Frank Gutierrez <npm.frankg@gmail.com>",
+  "license": "MIT"
+}
